@@ -1,4 +1,6 @@
 @import "~normalize.css";
+@import "~basscss/css/basscss.min.css";
+@import "~antd/dist/antd.css";
 
 /* 样式的重置 */
 body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
@@ -41,7 +43,7 @@ img {
 
 /* 全局样式 */
 body, textarea, select, input, button {
-  font-size: 12px;
+  /* font-size: 14px; */
   color: #333;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #f5f5f5;
@@ -118,3 +120,30 @@ body, textarea, select, input, button {
   color: #fff;
 }
 
+.fs12 {
+  font-size: 12px;
+}
+.fs13 {
+  font-size: 13px;
+}
+.fs14 {
+  font-size: 14px;
+}
+.fs15 {
+  font-size: 15px;
+}
+.fs16 {
+  font-size: 16px;
+}
+.fs17 {
+  font-size: 17px;
+}
+.fs18 {
+  font-size: 18px;
+}
+.fs20 {
+  font-size: 20px;
+}
+.gray {
+  color: gray;
+}
