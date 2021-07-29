@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 
-const mergeReducer = combineReducers({
 
+import { reducer as recommendReducer } from '../views/discover/c-pages/recommend/store'
+const mergeReducer = combineReducers({
+  recommend: recommendReducer
 })
 
 export default mergeReducer
