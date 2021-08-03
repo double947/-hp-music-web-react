@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react'
-import { connect, shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import { getTopBannerAction } from './store/actionCreators'
 
@@ -7,7 +7,7 @@ import { getTopBannerAction } from './store/actionCreators'
 function CoRecommend(props) {
   // 组件和redux关联：获取数据和进行dispatch操作
   const { topBanners } = useSelector(state => ({
-    topBanners: state.recommend.topBanners
+    topBanners: state.recommend.get('topBanners')
   }), shallowEqual)  // useSelector 的第二个参数传入 shallowEqual 会对当前组件所依赖的state做浅层比较，已达到性能优化的目的
   const dispatch = useDispatch()
 
