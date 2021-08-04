@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import { CoTopBanner, CoHotRecommend, CoNewAlbum, CoRanking } from './c-cpns'
 import { RecommendWrapper, Content, RecommendLeft, RecommendRight } from './style'
 
