@@ -9,3 +9,17 @@ export function getTopBanners() {
     method: 'get'
   })
 }
+
+/**
+ * 获取热门推荐歌单
+ * @param  {} limit
+ */
+export function getHotRecommends(limit) {
+  return request({
+    url: `/personalized`,
+    method: 'get',
+    params: {
+      limit
+    }
+  })
+}
