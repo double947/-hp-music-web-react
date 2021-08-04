@@ -9,7 +9,6 @@ const changeTopBannersAction = (res) => ({
 export const getTopBannerAction = () => {
   return async(dispatch) => {
     const resp = await getTopBanners()
-    console.log(resp)
     dispatch(changeTopBannersAction(resp))
   }
 }
