@@ -1,13 +1,21 @@
 import React, { memo, useEffect } from 'react'
-import TopBanner from './c-cpns/topBanner'
-import { RecommendWrapper } from './style'
+import { CoTopBanner, CoHotRecommend, CoNewAlbum, CoRanking } from './c-cpns'
+import { RecommendWrapper, Content, RecommendLeft, RecommendRight } from './style'
 
 // 优化后的代码
 function CoRecommend(props) {
 
   return (
     <RecommendWrapper>
-    <TopBanner />
+    <CoTopBanner />
+    <Content className="wrap-v2">
+      <RecommendLeft>
+        <CoHotRecommend />
+        <CoNewAlbum />
+        <CoRanking />
+      </RecommendLeft>
+      <RecommendRight></RecommendRight>
+    </Content>
     </RecommendWrapper>
   )
 }
