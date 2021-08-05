@@ -34,7 +34,6 @@ export const getHotRecommendsAction = (limit) => {
 export const getNewAlbumsAction = (limit) => {
   return async(dispatch) => {
     const resp = await getNewAlbums(limit)
-    console.log(resp)
     dispatch(changeNewAlbumsAction(resp))
   }
 }
