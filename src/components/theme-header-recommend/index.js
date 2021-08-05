@@ -12,7 +12,7 @@ export default memo(function CoThemeHeaderRecommend(props) {
             keywords.map((item, index) => {
               return (
                 <div className="flex items-center item" key={item}>
-                  <a href="">{item}</a>
+                  <a href="/">{item}</a>
                   <div className="divider">|</div>
                 </div>
               )

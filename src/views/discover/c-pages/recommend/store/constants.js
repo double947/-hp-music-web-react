@@ -1,2 +1,3 @@
 export const CHANGE_TOP_BANNERS = "recommend_CHANGE_TOP_BANNERS"
 export const CHANGE_HOT_RECOMMENDS = "recommend_CHANGE_HOT_RECOMMENDS"
+export const CHANGE_NEW_ALBUMS = "recommend_CHANGE_NEW_ALBUMS"
