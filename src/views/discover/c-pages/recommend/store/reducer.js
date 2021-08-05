@@ -1,4 +1,4 @@
-import { Map } from 'immutable'
+import { fromJS } from 'immutable'
 import * as actionTypes from './constants'
 
 // 引出问题：在开发中，如果数据变更，节点类型不相同的时候会怎样呢？
@@ -10,7 +10,7 @@ import * as actionTypes from './constants'
 // 同时为了避免 deepCopy 把所有节点都复制一遍带来的性能损耗，Immutable 使用了Structural Sharing（结构共享），即如果对象树中一个节点发生变化，只修改这个节点和受它影响的父节点，其它节点则进行共享
 
 
-const defaultState = Map({
+const defaultState = fromJS({  // 由于此处state中有嵌套结构体所以使用 fromJS 来进行深层转化，Map只能浅层转化
   topBanners: [],
   hotRecommends: [],
   newAlbums: [],
