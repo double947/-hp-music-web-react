@@ -13,7 +13,12 @@ import * as actionTypes from './constants'
 const defaultState = Map({
   topBanners: [],
   hotRecommends: [],
-  newAlbums: []
+  newAlbums: [],
+  topRanking: {
+    topUpList: {},
+    topNewList: {},
+    topOriginList: {}
+  }
 })
 
 function reducer(state = defaultState, action) {
@@ -24,6 +29,8 @@ function reducer(state = defaultState, action) {
       return state.set('hotRecommends', action.hotRecommends)
     case actionTypes.CHANGE_NEW_ALBUMS:
       return state.set('newAlbums', action.newAlbums)
+    case actionTypes.CHANGE_TOP_RANKING:
+      return state.setIn(['topRanking', action.rankName], action.rankSource)
     default: 
       return state;
   }
