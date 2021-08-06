@@ -34,3 +34,5 @@ export const SETTLED_SINGERS_AREA = {
   korea: 16,
   other: 0
 }
+
+export const HOT_ANCHORS_LIMIT = 5

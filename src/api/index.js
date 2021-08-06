@@ -52,6 +52,7 @@ export function getRecommendRank(idx) {
   })
 }
 /**
+ * 获取入驻歌手榜
  * @param  {number} type  -1:全部 1:男歌手 2:女歌手 3:乐队
  * @param  {number} area  -1:全部 7:华语 96:欧美 8:日本 16:韩国 0:其他
  * @param  {number} limit
@@ -63,6 +64,19 @@ export function getSettledSingers(type, area, limit) {
     params: {
       type,
       area,
+      limit
+    }
+  })
+}
+/**
+ * 获取热门主播榜
+ * @param  {number} limit
+ */
+export function getHotAnchors(limit) {
+  return request({
+    url: '/dj/toplist/popular',
+    method: 'get',
+    params: {
       limit
     }
   })

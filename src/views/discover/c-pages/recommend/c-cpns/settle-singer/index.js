@@ -10,7 +10,6 @@ import { getSizeImage } from '@/utils/format-utils'
 
 const SingerItem = memo(function SingerItem(props) {
   const { source } = props
-  console.log(source)
 
   return (
     <SingerItemWrapper className="flex mt2">

@@ -19,7 +19,8 @@ const defaultState = fromJS({  // 由于此处state中有嵌套结构体所以�
     topNewList: {},
     topOriginList: {}
   },
-  settledSingers: []
+  settledSingers: [],
+  hotAnchors: []
 })
 
 function reducer(state = defaultState, action) {
@@ -34,6 +35,8 @@ function reducer(state = defaultState, action) {
       return state.setIn(['topRanking', action.rankName], action.rankSource)
     case actionTypes.CHANGE_SETTLED_SINGERS:
       return state.set('settledSingers', action.settledSingers)
+    case actionTypes.CHANGE_HOT_ANCHORS:
+      return state.set('hotAnchors', action.hotAnchors)
     default: 
       return state;
   }
