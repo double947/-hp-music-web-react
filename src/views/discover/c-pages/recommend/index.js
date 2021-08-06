@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { CoTopBanner, CoHotRecommend, CoNewAlbum, CoRanking } from './c-cpns'
+import { CoTopBanner, CoHotRecommend, CoNewAlbum, CoRanking,  CoUserLogin, CoSettleSinger, CoHotAnchor } from './c-cpns'
 import { RecommendWrapper, Content, RecommendLeft, RecommendRight } from './style'
 
 // 优化后的代码
@@ -14,7 +14,11 @@ function CoRecommend(props) {
         <CoNewAlbum />
         <CoRanking />
       </RecommendLeft>
-      <RecommendRight></RecommendRight>
+      <RecommendRight>
+        <CoUserLogin />
+        <CoSettleSinger />
+        <CoHotAnchor />
+      </RecommendRight>
     </Content>
     </RecommendWrapper>
   )
