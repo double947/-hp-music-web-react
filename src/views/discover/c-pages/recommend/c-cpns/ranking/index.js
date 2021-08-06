@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import { getTopRankingAction } from '../../store/actionCreators'
 import { UP_RANK, NEW_RANK, ORIGIN_RANK } from '@/common/constants'
@@ -12,7 +12,7 @@ export default memo(function CoRanking() {
     topUpList: state.getIn(['recommend', 'topRanking', 'topUpList']),
     topNewList: state.getIn(['recommend', 'topRanking', 'topNewList']),
     topOriginList: state.getIn(['recommend', 'topRanking', 'topOriginList']),
-  }))
+  }), shallowEqual)
   /* redux */
   const dispatch = useDispatch()
   useEffect(() =>{

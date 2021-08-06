@@ -28,8 +28,8 @@ export default memo(function CoTopRanking(props) {
             return (
               <div key={item.id} className="flex items-center px2 ranking-item">
                 <div className="flex justify-center fs16 rank">{index+1}</div>
-                <div className="flex info">
-                  <div className="fs12 song-name" title={item.name}>{item.name}</div>
+                <div className="flex justify-between info">
+                  <div className="fs12 text-nowrap song-name" title={item.name}>{item.name}</div>
                   <div className="flex items-center actions">
                     <div className="btn mr1 sprite_02 play"></div>
                     <div className="btn mr1 sprite_icon2 addto"></div>

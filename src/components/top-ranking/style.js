@@ -36,9 +36,6 @@ export const TopRankingWrapper = styled.div`
 
     .ranking-item:hover .info>.song-name {
       width: 80px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
     }
     .ranking-item:hover .actions {
       display: flex;
@@ -55,7 +52,7 @@ export const TopRankingWrapper = styled.div`
       }
       .info {
         .song-name {
-          width: 150px;
+          width: 160px;
           cursor: pointer;
         }
         .actions {
