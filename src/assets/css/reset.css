@@ -153,3 +153,9 @@ body, textarea, select, input, button {
 .white {
   color: #FFF;
 }
+.fitW {
+  width: 100%;
+}
+.fitH {
+  height: 100%;
+}
