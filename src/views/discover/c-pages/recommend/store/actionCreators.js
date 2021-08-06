@@ -47,7 +47,6 @@ export const getNewAlbumsAction = (limit) => {
 export const getTopRankingAction = (idx, rankName) => {
   return async(dispatch) => {
     const resp = await getRecommendRank(idx)
-    console.log(resp,rankName)
     dispatch(changeTopRankAction(resp, rankName))
   }
 }

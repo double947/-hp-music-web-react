@@ -147,3 +147,6 @@ body, textarea, select, input, button {
 .gray {
   color: gray;
 }
+.black {
+  color: #000;
+}
