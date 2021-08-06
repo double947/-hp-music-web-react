@@ -6,6 +6,8 @@ export const TopRankingWrapper = styled.div`
     height: 120px;
     padding: 20px 0 0 20px;
     .img-cover {
+      width: 80px;
+      height: 80px;
       cursor: pointer;
     }
     .user-action {

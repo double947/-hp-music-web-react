@@ -10,8 +10,9 @@ export default memo(function CoTopRanking(props) {
   return (
     <TopRankingWrapper>
       <div className="flex header">
-        <div className="img-cover">
+        <div className="relative img-cover">
           <img src={getSizeImage(source.coverImgUrl, 80)} alt="" />
+          <a href="/" className="image_cover">ranking</a>
         </div>
         <div className="flex flex-column user-action">
           <a href="/" className="bold black">{source.name}</a>
