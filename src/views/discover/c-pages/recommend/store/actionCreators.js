@@ -1,5 +1,5 @@
 import * as actionTypes from './constants'
-import { getTopBanners, getHotRecommends, getNewAlbums, getRecommendRank } from '@/api'
+import { getTopBanners, getHotRecommends, getNewAlbums, getRecommendRank, getSettledSingers } from '@/api'
 
 const changeTopBannersAction = (res) => ({
   type: actionTypes.CHANGE_TOP_BANNERS,
@@ -20,6 +20,11 @@ const changeTopRankAction = (res, rankName) => ({
   type: actionTypes.CHANGE_TOP_RANKING,
   rankSource: res.playlist,
   rankName: rankName
+})
+
+const changSettledSingers = (res) => ({
+  type: actionTypes.CHANGE_SETTLED_SINGERS,
+  settledSingers: res.artists
 })
 
 
@@ -48,5 +53,12 @@ export const getTopRankingAction = (idx, rankName) => {
   return async(dispatch) => {
     const resp = await getRecommendRank(idx)
     dispatch(changeTopRankAction(resp, rankName))
+  }
+}
+
+export const getSettledSingersAction = (type, area, limit) => {
+  return async(dispatch) => {
+    const resp = await getSettledSingers(type, area, limit)
+    dispatch(changSettledSingers(resp))
   }
 }

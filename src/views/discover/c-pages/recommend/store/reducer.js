@@ -18,7 +18,8 @@ const defaultState = fromJS({  // 由于此处state中有嵌套结构体所以�
     topUpList: {},
     topNewList: {},
     topOriginList: {}
-  }
+  },
+  settledSingers: []
 })
 
 function reducer(state = defaultState, action) {
@@ -31,6 +32,8 @@ function reducer(state = defaultState, action) {
       return state.set('newAlbums', action.newAlbums)
     case actionTypes.CHANGE_TOP_RANKING:
       return state.setIn(['topRanking', action.rankName], action.rankSource)
+    case actionTypes.CHANGE_SETTLED_SINGERS:
+      return state.set('settledSingers', action.settledSingers)
     default: 
       return state;
   }

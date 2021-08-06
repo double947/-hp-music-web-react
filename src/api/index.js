@@ -51,3 +51,19 @@ export function getRecommendRank(idx) {
     }
   })
 }
+/**
+ * @param  {number} type  -1:全部 1:男歌手 2:女歌手 3:乐队
+ * @param  {number} area  -1:全部 7:华语 96:欧美 8:日本 16:韩国 0:其他
+ * @param  {number} limit
+ */
+export function getSettledSingers(type, area, limit) {
+  return request({
+    url: '/artist/list',
+    method: 'get',
+    params: {
+      type,
+      area,
+      limit
+    }
+  })
+}
