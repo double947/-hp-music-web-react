@@ -1,44 +1,95 @@
-import React, { memo, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { Slider } from 'antd'
+import dayjs from 'dayjs'
 
 import { AppPlayerBarWrapper, Control, PlayInfo, Operator } from './style'
 import { getSongDetailAction } from '../store/actionCreators'
+import { getSizeImage, getPlayUrl } from 'utils/format-utils'
 
 export default memo(function AppPlayerBar() {
+  /* state */
+  const [duration, setDuration] = useState(0)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [progress, setProgress] = useState(0)
+  const [isChanging, setIsChanging] = useState(false)
 
   /* redux */
   const dispatch = useDispatch()
+  const { currentSong } = useSelector((state) => ({
+    currentSong: state.getIn(['player', 'currentSong'])
+  }), shallowEqual)
   /* hooks */
+  const playerRef = useRef()
   useEffect(() => {
     dispatch(getSongDetailAction(1330348068))
-  }, [dispatch])
+    setDuration(currentSong.dt)
+  }, [dispatch, currentSong.dt])
+
+  /* other handel */
+  const picUrl = (currentSong.al && currentSong.al.picUrl) || ''
+  const singerName = (currentSong.ar && currentSong.ar[0].name) || '未知歌手'
+  const currentProgress = currentTime / duration * 100
+  
+  /* other function */
+  const playMusic = () => {
+    playerRef.current.src = getPlayUrl(currentSong.id)
+    playerRef.current.play()
+  }
+  const timeUpdate = (e) => {
+    setCurrentTime(e.target.currentTime * 1000)
+    // 只有在非正在手动改变进度的时候才根据时间进度来设置进度条
+    if (!isChanging) {
+      setProgress(currentTime / duration *100)
+    }
+  }
+
+  // 手动改变进度条回调
+  const sliderOnChange = useCallback((value) => {
+    // 手动改变进度条时将状态设置为true
+    setIsChanging(true)
+    setProgress(value)
+  }, [])
+
+  // 手动改变进度条结束回调
+  const sliderOnAfterChange = useCallback((value) => {
+    const currentTime =  value / 100 * duration / 1000
+    // 将当前的歌曲事件设置到audio标签中
+    playerRef.current.currentTime = currentTime
+    // 手动改变结束将状态设置为false
+    setIsChanging(false)
+  }, [duration])
+
   return (
     <AppPlayerBarWrapper className="sprite_player">
       <div className="flex justify-center items-center content ">
         <Control className="flex justify-around items-center pt1 control">
           <div className="sprite_player prev"></div>
-          <div className="sprite_player play"></div>
+          <div className="sprite_player play" onClick={() => { playMusic() }}></div>
           <div className="sprite_player next"></div>
         </Control>
         <PlayInfo className="flex items-center pt1 play-info">
           <div className="relative image">
             <a href="/#">
-              <img src="https://p2.music.126.net/dbjj-8NjSIoRBbU06uKuKQ==/109951166220976693.jpg?param=34y34" alt="" />
+              <img src={getSizeImage(picUrl, 35)} alt="" />
             </a>
             <div className="sprite_player cover"></div>
           </div>
-          <div className="flex flex-column info">
+          <div className="flex flex-column ml1   info">
             <div className="flex fs12 song">
-              <div className="mr1 song-name">说了再见</div>
-              <a href="/#" className="singer-name">周杰伦</a>
+              <div className="mr1 song-name">{currentSong.name}</div>
+              <a href="/#" className="singer-name">{singerName}</a>
             </div>
             <div className="flex progress">
-              <Slider defaultValue={30} />
+              <Slider 
+                value={progress}
+                onChange={sliderOnChange}
+                onAfterChange={sliderOnAfterChange}
+              />
               <div className="flex items-center fs12 ml1 time">
-                <span className="time-now">03:00</span>
+                <span className="time-now">{dayjs(currentTime).format('mm:ss')}</span>
                 <span className="divider">/</span>
-                <span className="time-total">03:00</span>
+                <span className="time-total">{dayjs(duration).format('mm:ss')}</span>
               </div>
             </div>
           </div>
@@ -55,6 +106,7 @@ export default memo(function AppPlayerBar() {
           </div>
         </Operator>
       </div>
+      <audio ref={playerRef} onTimeUpdate={timeUpdate} />
     </AppPlayerBarWrapper>
   )
 })

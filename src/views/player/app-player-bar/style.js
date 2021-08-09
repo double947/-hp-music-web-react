@@ -48,6 +48,7 @@ export const PlayInfo = styled.div`
     width: 34px;
     height: 34px;
     border-radius: 5px;
+    overflow: hidden;
     .cover {
       position: absolute;
       left: 0;
@@ -75,6 +76,7 @@ export const PlayInfo = styled.div`
       width: 100%;
       .ant-slider {
         width: 466px;
+        margin-left: 8px;
       }
       .ant-slider-rail {
         height: 7px;
