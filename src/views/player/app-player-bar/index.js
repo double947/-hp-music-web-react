@@ -1,9 +1,18 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Slider } from 'antd'
 
 import { AppPlayerBarWrapper, Control, PlayInfo, Operator } from './style'
+import { getSongDetailAction } from '../store/actionCreators'
 
 export default memo(function AppPlayerBar() {
+
+  /* redux */
+  const dispatch = useDispatch()
+  /* hooks */
+  useEffect(() => {
+    dispatch(getSongDetailAction(1330348068))
+  }, [dispatch])
   return (
     <AppPlayerBarWrapper className="sprite_player">
       <div className="flex justify-center items-center content ">

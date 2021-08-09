@@ -23,6 +23,7 @@ export function getHotRecommends(limit) {
     }
   })
 }
+
 /**
  * 获取推荐模块新碟上架
  * @param  {number} limit
@@ -51,6 +52,7 @@ export function getRecommendRank(idx) {
     }
   })
 }
+
 /**
  * 获取入驻歌手榜
  * @param  {number} type  -1:全部 1:男歌手 2:女歌手 3:乐队
@@ -68,6 +70,7 @@ export function getSettledSingers(type, area, limit) {
     }
   })
 }
+
 /**
  * 获取热门主播榜
  * @param  {number} limit
@@ -78,6 +81,20 @@ export function getHotAnchors(limit) {
     method: 'get',
     params: {
       limit
+    }
+  })
+}
+
+/**
+ * 获取歌曲详情，传入歌曲ids（支持多个，用，隔开）
+ * @param  {number} ids
+ */
+export function getSongDetail(ids) {
+  return request({
+    url: '/song/detail',
+    method: 'get',
+    params: {
+      ids
     }
   })
 }
