@@ -7,6 +7,7 @@ import store from './store'
 import routes from './router'
 
 import { CoAppHeader, CoAppFooter } from 'components'
+import AppPlayerBar from 'views/player/app-player-bar'
 
 export default memo(function App() {
   return (
@@ -15,6 +16,7 @@ export default memo(function App() {
         <CoAppHeader />
           {renderRoutes(routes)}
         <CoAppFooter />
+        <AppPlayerBar />
       </BrowserRouter>
     </Provider>
   )
