@@ -8,6 +8,8 @@ import CoSongs from "../views/discover/c-pages/songs"
 import CoDjradio from "../views/discover/c-pages/djradio"
 import CoArtist from "../views/discover/c-pages/artist"
 import CoAlbum from "../views/discover/c-pages/album"
+import CoPlayer from 'views/player'
+
 
 import CoMine from '@/views/mine'
 import CoFriend from '@/views/friend'
@@ -55,7 +57,11 @@ const routes = [
       },
       {
         path: "/discover/album",
-        component:CoAlbum
+        component: CoAlbum
+      },
+      {
+        path: "/discover/player",
+        component: CoPlayer
       },
     ]
   },

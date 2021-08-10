@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { Slider } from 'antd'
 import dayjs from 'dayjs'
 
@@ -91,10 +92,10 @@ export default memo(function AppPlayerBar() {
         </Control>
         <PlayInfo className="flex items-center pt1 play-info">
           <div className="relative image">
-            <a href="/#">
+            <NavLink to="/discover/player">
               <img src={getSizeImage(picUrl, 35)} alt="" />
-            </a>
-            <div className="sprite_player cover"></div>
+              <div className="sprite_player cover"></div>
+            </NavLink>
           </div>
           <div className="flex flex-column ml1   info">
             <div className="flex fs12 song">
