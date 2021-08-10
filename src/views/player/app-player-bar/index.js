@@ -9,10 +9,10 @@ import { getSizeImage, getPlayUrl } from 'utils/format-utils'
 
 export default memo(function AppPlayerBar() {
   /* state */
-  const [duration, setDuration] = useState(0)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [progress, setProgress] = useState(0)
-  const [isChanging, setIsChanging] = useState(false)
+  const [duration, setDuration] = useState(0)  // 歌曲总时长
+  const [currentTime, setCurrentTime] = useState(0) // 歌曲播放的当前时间点
+  const [progress, setProgress] = useState(0)  // 歌曲进度
+  const [isChanging, setIsChanging] = useState(false) // 是否正在手动改变进度条
 
   /* redux */
   const dispatch = useDispatch()
@@ -54,7 +54,7 @@ export default memo(function AppPlayerBar() {
   // 手动改变进度条结束回调
   const sliderOnAfterChange = useCallback((value) => {
     const currentTime =  value / 100 * duration / 1000
-    // 将当前的歌曲事件设置到audio标签中
+    // 将当前的歌曲时间设置到audio标签中
     playerRef.current.currentTime = currentTime
     // 手动改变结束将状态设置为false
     setIsChanging(false)
