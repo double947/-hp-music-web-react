@@ -6,7 +6,7 @@ import { PlayerWrapper, PlayerLeft, PlayerRight } from './style'
 export default memo(function CoPlayer() {
   return (
     <PlayerWrapper>
-      <div className="content">
+      <div className="flex wrap-v2 content">
       <PlayerLeft>
         <CoPlayerInfo />
         <CoPlayerComment />
