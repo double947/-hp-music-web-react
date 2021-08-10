@@ -12,7 +12,7 @@ export default memo(function CoTopRanking(props) {
   /* hooks */
   const dispatch = useDispatch()
 
-  /* other handel */
+  /* other handle */
   const playMusic = useCallback((item) =>{
     dispatch(getSongDetailAction(item.id))
   }, [dispatch])

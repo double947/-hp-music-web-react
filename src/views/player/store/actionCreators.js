@@ -1,4 +1,5 @@
 import { getSongDetail } from "@/api"
+import { getRandomNumber } from "utils/math-utils"
 import * as actionTypes from './constants'
 
 /* changeActions */
@@ -21,6 +22,36 @@ export const changePlaySequenceAction = (sequenceEnum) => ({
   type: actionTypes.CHANGE_PLAY_SEQUENCE,
   playSequence: sequenceEnum
 })
+
+export const changePlaySongAction = (tag) => {
+  return (dispatch, getState) => {
+    // 1.获取相关数据
+    const playList = getState().getIn(['player', 'playList'])
+    const playSequence = getState().getIn(['player', 'playSequence'])
+    let currentSongIndex = getState().getIn(['player', 'currentSongIndex'])
+
+    // 2.判断播放列表顺序
+    switch(playSequence) {
+      case 1: // 随机播放
+        let randomIndex = -1
+        while (randomIndex === currentSongIndex) {
+          randomIndex = getRandomNumber(playList.length)
+        }
+        currentSongIndex = randomIndex
+        break
+      default: // 顺序播放
+        currentSongIndex += tag
+        if (currentSongIndex >= playList.length) currentSongIndex = 0
+        if (currentSongIndex < 0) currentSongIndex = playList.length -1
+    }
+
+    // 3.更新redux中相关数据
+    const currentSong = playList[currentSongIndex]
+    dispatch(changCurrentSongIndexAction(currentSongIndex))
+    dispatch(changeCurrentSongAction(currentSong))
+
+  }
+}
 
 
 /* getActions */

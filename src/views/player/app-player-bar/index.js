@@ -5,7 +5,7 @@ import { Slider } from 'antd'
 import dayjs from 'dayjs'
 
 import { AppPlayerBarWrapper, Control, PlayInfo, Operator } from './style'
-import { changePlaySequenceAction, getSongDetailAction } from '../store/actionCreators'
+import { changePlaySequenceAction, getSongDetailAction, changePlaySongAction } from '../store/actionCreators'
 import { getSizeImage, getPlayUrl } from 'utils/format-utils'
 
 export default memo(function AppPlayerBar() {
@@ -27,15 +27,23 @@ export default memo(function AppPlayerBar() {
   const playerRef = useRef()
   useEffect(() => {
     dispatch(getSongDetailAction(1330348068))
-    setDuration(currentSong.dt)
-  }, [dispatch, currentSong.dt])
+  }, [dispatch])
 
   // 只有在歌曲id发生改变的时候才需要重新设置播放src
   useEffect(() => {
     playerRef.current.src = getPlayUrl(currentSong.id)
-  }, [currentSong.id])
 
-  /* other handel */
+    // 切歌后主动调用play(),且audio的play方法返回的是一个Promise
+    playerRef.current.play()
+      .then(() => {
+        setIsPlaying(true)
+      }).catch(() => {
+        setIsPlaying(false)
+      })
+    setDuration(currentSong.dt)
+  }, [currentSong])
+
+  /* other handle */
   const picUrl = (currentSong.al && currentSong.al.picUrl) || ''
   const singerName = (currentSong.ar && currentSong.ar[0].name) || '未知歌手'
   
@@ -53,6 +61,15 @@ export default memo(function AppPlayerBar() {
     if (!isChanging) {
       setCurrentTime(e.target.currentTime * 1000)
       setProgress(currentTime / duration *100)
+    }
+  }
+
+  const handleMusicEnded = (e) => {
+    if (playSequence === 2 || playList.length === 1) { // 播放顺序为单曲循环 或 歌曲列表只有一首歌
+      playerRef.current.currentTime = 0
+      playerRef.current.play()
+    } else {
+      dispatch(changePlaySongAction(1))
     }
   }
 
@@ -85,7 +102,6 @@ export default memo(function AppPlayerBar() {
   }, [duration, isPlaying, playMusic])
 
   const changePlaySequence = useCallback(() => {
-    console.log(1111)
     let currentSequence = playSequence + 1
     if (currentSequence > 2) {
       currentSequence = 0
@@ -93,13 +109,17 @@ export default memo(function AppPlayerBar() {
     dispatch(changePlaySequenceAction(currentSequence))
   }, [dispatch, playSequence])
 
+  const changeMusic = useCallback((tag) => {
+    dispatch(changePlaySongAction(tag))
+  }, [dispatch])
+
   return (
     <AppPlayerBarWrapper className="sprite_player">
       <div className="flex justify-center items-center content ">
         <Control isPlaying={isPlaying} className="flex justify-around items-center pt1 control">
-          <div className="sprite_player prev"></div>
+          <div className="sprite_player prev" onClick={() => { changeMusic(-1) }}></div>
           <div className="sprite_player play" onClick={() => { playMusic() }}></div>
-          <div className="sprite_player next"></div>
+          <div className="sprite_player next" onClick={() => { changeMusic(1) }}></div>
         </Control>
         <PlayInfo className="flex items-center pt1 play-info">
           <div className="relative image">
@@ -140,7 +160,7 @@ export default memo(function AppPlayerBar() {
           </div>
         </Operator>
       </div>
-      <audio ref={playerRef} onTimeUpdate={timeUpdate} />
+      <audio ref={playerRef} onTimeUpdate={timeUpdate} onEnded={handleMusicEnded} />
     </AppPlayerBarWrapper>
   )
 })
