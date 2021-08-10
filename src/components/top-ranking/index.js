@@ -1,11 +1,21 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 
-import { getSizeImage } from '../../utils/format-utils'
+import { getSongDetailAction } from 'views/player/store'
+import { getSizeImage } from 'utils/format-utils'
 import { TopRankingWrapper } from './style'
 
 export default memo(function CoTopRanking(props) {
   const { source } = props
   const { tracks = [] } = source
+
+  /* hooks */
+  const dispatch = useDispatch()
+
+  /* other handel */
+  const playMusic = useCallback((item) =>{
+    dispatch(getSongDetailAction(item.id))
+  }, [dispatch])
 
   return (
     <TopRankingWrapper>
@@ -31,7 +41,7 @@ export default memo(function CoTopRanking(props) {
                 <div className="flex justify-between info">
                   <div className="fs12 text-nowrap song-name" title={item.name}>{item.name}</div>
                   <div className="flex items-center actions">
-                    <div className="btn mr1 sprite_02 play"></div>
+                    <div className="btn mr1 sprite_02 play" onClick={() => { playMusic(item) }}></div>
                     <div className="btn mr1 sprite_icon2 addto"></div>
                     <div className="btn sprite_02 favor"></div>
                   </div>
