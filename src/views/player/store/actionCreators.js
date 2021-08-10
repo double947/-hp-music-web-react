@@ -1,6 +1,7 @@
 import { getSongDetail } from "@/api"
 import * as actionTypes from './constants'
 
+/* changeActions */
 const changeCurrentSongAction = (currentSong) => ({
   type: actionTypes.CHANGE_CURRENT_SONG,
   currentSong: currentSong
@@ -16,6 +17,13 @@ const changePlayLisAction = (playList) => ({
   playList: playList
 })
 
+export const changePlaySequenceAction = (sequenceEnum) => ({
+  type: actionTypes.CHANGE_PLAY_SEQUENCE,
+  playSequence: sequenceEnum
+})
+
+
+/* getActions */
 export const getSongDetailAction = (id) => {
   return async(dispatch, getState) => {
     // 1.根据id查找playList中是否已有该歌曲

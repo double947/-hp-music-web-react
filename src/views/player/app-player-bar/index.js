@@ -5,7 +5,7 @@ import { Slider } from 'antd'
 import dayjs from 'dayjs'
 
 import { AppPlayerBarWrapper, Control, PlayInfo, Operator } from './style'
-import { getSongDetailAction } from '../store/actionCreators'
+import { changePlaySequenceAction, getSongDetailAction } from '../store/actionCreators'
 import { getSizeImage, getPlayUrl } from 'utils/format-utils'
 
 export default memo(function AppPlayerBar() {
@@ -18,8 +18,10 @@ export default memo(function AppPlayerBar() {
 
   /* redux */
   const dispatch = useDispatch()
-  const { currentSong } = useSelector((state) => ({
-    currentSong: state.getIn(['player', 'currentSong'])
+  const { playList, currentSong, playSequence } = useSelector((state) => ({
+    playList: state.getIn(['player', 'playList']),
+    currentSong: state.getIn(['player', 'currentSong']),
+    playSequence: state.getIn(['player', 'playSequence'])
   }), shallowEqual)
   /* hooks */
   const playerRef = useRef()
@@ -82,6 +84,15 @@ export default memo(function AppPlayerBar() {
     }
   }, [duration, isPlaying, playMusic])
 
+  const changePlaySequence = useCallback(() => {
+    console.log(1111)
+    let currentSequence = playSequence + 1
+    if (currentSequence > 2) {
+      currentSequence = 0
+    }
+    dispatch(changePlaySequenceAction(currentSequence))
+  }, [dispatch, playSequence])
+
   return (
     <AppPlayerBarWrapper className="sprite_player">
       <div className="flex justify-center items-center content ">
@@ -117,15 +128,15 @@ export default memo(function AppPlayerBar() {
             </div>
           </div>
         </PlayInfo>
-        <Operator className="flex operator pt1">
+        <Operator sequence={playSequence} className="flex operator pt1">
           <div className="flex items-end action">
             <div className="sprite_player mr1 btn favor"></div>
             <div className="sprite_player btn share"></div>
           </div>
           <div className="flex items-end play-control">
             <div className="sprite_player mr1 btn vol"></div>
-            <div className="sprite_player mr1 btn loop"></div>
-            <div className="flex items-center pl3 fs12 sprite_player btn lyric">6</div>
+            <div className="sprite_player mr1 btn loop" onClick={() => {changePlaySequence()}}></div>
+            <div className="flex items-center pl3 fs12 sprite_player btn lyric">{playList.length}</div>
           </div>
         </Operator>
       </div>
