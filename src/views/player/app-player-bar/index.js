@@ -37,11 +37,11 @@ export default memo(function AppPlayerBar() {
     playerRef.current.play()
   }
   const timeUpdate = (e) => {
-    setCurrentTime(e.target.currentTime * 1000)
     // console.log('timeUpdate', currentTime / duration *100, currentTime)
     
-    // 只有在非正在手动改变进度的时候才根据时间进度来设置进度条
+    // 只有在非正在手动改变进度的时候才根据自然时间来设置当前播放时间点和更新进度条
     if (!isChanging) {
+      setCurrentTime(e.target.currentTime * 1000)
       setProgress(currentTime / duration *100)
     }
   }
@@ -50,12 +50,14 @@ export default memo(function AppPlayerBar() {
   const sliderOnChange = useCallback((value) => {
     // 手动改变进度条时将状态设置为true
     setIsChanging(true)
+    // 手动改变时需要设置当前播放时间点
+    setCurrentTime(value / 100 * duration)
     setProgress(value)
-  }, [])
+  }, [duration])
 
   // 手动改变进度条结束回调
   const sliderOnAfterChange = useCallback((value) => {
-    const currentTime =  value / 100 * duration / 1000
+    const currentTime =  value / 100 * duration / 1000  // 秒钟s
     // 将当前的歌曲时间设置到audio标签中
     playerRef.current.currentTime = currentTime
 
@@ -89,6 +91,7 @@ export default memo(function AppPlayerBar() {
             </div>
             <div className="flex progress">
               <Slider 
+                tooltipVisible={false}
                 value={progress}
                 onChange={sliderOnChange}
                 onAfterChange={sliderOnAfterChange}
