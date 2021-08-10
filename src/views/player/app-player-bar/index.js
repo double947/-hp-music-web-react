@@ -38,6 +38,8 @@ export default memo(function AppPlayerBar() {
   }
   const timeUpdate = (e) => {
     setCurrentTime(e.target.currentTime * 1000)
+    // console.log('timeUpdate', currentTime / duration *100, currentTime)
+    
     // 只有在非正在手动改变进度的时候才根据时间进度来设置进度条
     if (!isChanging) {
       setProgress(currentTime / duration *100)
@@ -56,6 +58,11 @@ export default memo(function AppPlayerBar() {
     const currentTime =  value / 100 * duration / 1000
     // 将当前的歌曲时间设置到audio标签中
     playerRef.current.currentTime = currentTime
+
+    // console.log('sliderOnAfterChange', currentTime)
+    // 由于手动改变结束后在上面的 timeUpdate 回调中去setCurrentTime会出现延迟，拿到的currentTime还是手动改变之前的播放时间点，导致出现进度条回弹的bug，所以在此处直接setCurrentTime一次。
+    setCurrentTime(currentTime * 1000)
+
     // 手动改变结束将状态设置为false
     setIsChanging(false)
   }, [duration])
