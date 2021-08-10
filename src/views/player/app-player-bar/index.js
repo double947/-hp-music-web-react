@@ -13,6 +13,7 @@ export default memo(function AppPlayerBar() {
   const [currentTime, setCurrentTime] = useState(0) // 歌曲播放的当前时间点
   const [progress, setProgress] = useState(0)  // 歌曲进度
   const [isChanging, setIsChanging] = useState(false) // 是否正在手动改变进度条
+  const [isPlaying, setIsPlaying] = useState(false)  // 是否正在播放
 
   /* redux */
   const dispatch = useDispatch()
@@ -26,16 +27,22 @@ export default memo(function AppPlayerBar() {
     setDuration(currentSong.dt)
   }, [dispatch, currentSong.dt])
 
+  // 只有在歌曲id发生改变的时候才需要重新设置播放src
+  useEffect(() => {
+    playerRef.current.src = getPlayUrl(currentSong.id)
+  }, [currentSong.id])
+
   /* other handel */
   const picUrl = (currentSong.al && currentSong.al.picUrl) || ''
   const singerName = (currentSong.ar && currentSong.ar[0].name) || '未知歌手'
-  const currentProgress = currentTime / duration * 100
   
   /* other function */
-  const playMusic = () => {
-    playerRef.current.src = getPlayUrl(currentSong.id)
-    playerRef.current.play()
-  }
+  const playMusic = useCallback(() => {
+    isPlaying ? playerRef.current.pause() : playerRef.current.play()
+    // 每次切换播放状态后需要对isPlaying取反
+    setIsPlaying(!isPlaying)
+  }, [isPlaying])
+
   const timeUpdate = (e) => {
     // console.log('timeUpdate', currentTime / duration *100, currentTime)
     
@@ -67,12 +74,17 @@ export default memo(function AppPlayerBar() {
 
     // 手动改变结束将状态设置为false
     setIsChanging(false)
-  }, [duration])
+
+    // 此时若为暂停状态则调用一下播放方法
+    if (!isPlaying) {
+      playMusic()
+    }
+  }, [duration, isPlaying, playMusic])
 
   return (
     <AppPlayerBarWrapper className="sprite_player">
       <div className="flex justify-center items-center content ">
-        <Control className="flex justify-around items-center pt1 control">
+        <Control isPlaying={isPlaying} className="flex justify-around items-center pt1 control">
           <div className="sprite_player prev"></div>
           <div className="sprite_player play" onClick={() => { playMusic() }}></div>
           <div className="sprite_player next"></div>
