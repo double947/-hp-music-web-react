@@ -34,6 +34,11 @@ export const changeCurrentLyricIndexAction = (index) => ({
   index
 })
 
+const changeCurrentLyricsAction = (currentLyrics) => ({
+  type: actionTypes.CHANGE_CURRENT_LYRICS,
+  currentLyrics,
+})
+
 
 /* getActions */
 export const changePlaySongAction = (tag) => {
@@ -102,10 +107,12 @@ export const getSongDetailAction = (id) => {
   }
 }
 
+// 获取当前歌词并解析
 export const getLyricAction = (id) => {
   return async(dispatch) => {
     const resp = await getLyricById(id)
     const parsedLyric = parseLyric(resp.lrc.lyric)
     dispatch(changeLyricListAction(parsedLyric))
+    dispatch(changeCurrentLyricsAction(parsedLyric))
   }
 }

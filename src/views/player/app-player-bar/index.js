@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { Slider, message } from 'antd'
 import dayjs from 'dayjs'
 
+import CoAppPlayerPanel from '../app-player-panel'
 import { AppPlayerBarWrapper, Control, PlayInfo, Operator } from './style'
 import { changePlaySequenceAction, getSongDetailAction, changePlaySongAction, changeCurrentLyricIndexAction } from '../store/actionCreators'
 import { getSizeImage, getPlayUrl } from 'utils/format-utils'
@@ -15,6 +16,7 @@ export default memo(function AppPlayerBar() {
   const [progress, setProgress] = useState(0)  // 歌曲进度
   const [isChanging, setIsChanging] = useState(false) // 是否正在手动改变进度条
   const [isPlaying, setIsPlaying] = useState(false)  // 是否正在播放
+  const [showPlayerPanel, setShowPlayerPanel] = useState(false)
 
   /* redux */
   const dispatch = useDispatch()
@@ -179,11 +181,12 @@ export default memo(function AppPlayerBar() {
           <div className="flex items-end play-control">
             <div className="sprite_player mr1 btn vol"></div>
             <div className="sprite_player mr1 btn loop" onClick={() => {changePlaySequence()}}></div>
-            <div className="flex items-center pl3 fs12 sprite_player btn lyric">{playList.length}</div>
+            <div className="flex items-center pl3 fs12 sprite_player btn lyric" onClick={e => setShowPlayerPanel(!showPlayerPanel)}>{playList.length}</div>
           </div>
         </Operator>
       </div>
       <audio ref={playerRef} onTimeUpdate={timeUpdate} onEnded={handleMusicEnded} />
+      {showPlayerPanel && <CoAppPlayerPanel bgCover={currentSong.al.picUrl} />}
     </AppPlayerBarWrapper>
   )
 })
