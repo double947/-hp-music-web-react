@@ -33,9 +33,9 @@ export const changePlaySongAction = (tag) => {
     // 2.判断播放列表顺序
     switch(playSequence) {
       case 1: // 随机播放
-        let randomIndex = -1
+        let randomIndex = getRandomNumber(0, playList.length)
         while (randomIndex === currentSongIndex) {
-          randomIndex = getRandomNumber(playList.length)
+          randomIndex = getRandomNumber(0, playList.length)
         }
         currentSongIndex = randomIndex
         break
