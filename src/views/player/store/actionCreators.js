@@ -29,6 +29,11 @@ const changeLyricListAction = (lyricList) => ({
   lyricList: lyricList
 })
 
+export const changeCurrentLyricIndexAction = (index) => ({
+  type: actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
+  index
+})
+
 
 /* getActions */
 export const changePlaySongAction = (tag) => {

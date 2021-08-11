@@ -5,7 +5,7 @@ import { Slider } from 'antd'
 import dayjs from 'dayjs'
 
 import { AppPlayerBarWrapper, Control, PlayInfo, Operator } from './style'
-import { changePlaySequenceAction, getSongDetailAction, changePlaySongAction } from '../store/actionCreators'
+import { changePlaySequenceAction, getSongDetailAction, changePlaySongAction, changeCurrentLyricIndexAction } from '../store/actionCreators'
 import { getSizeImage, getPlayUrl } from 'utils/format-utils'
 
 export default memo(function AppPlayerBar() {
@@ -18,11 +18,12 @@ export default memo(function AppPlayerBar() {
 
   /* redux */
   const dispatch = useDispatch()
-  const { playList, currentSong, playSequence, lyricList } = useSelector((state) => ({
+  const { playList, currentSong, playSequence, lyricList, currentLyricIndex } = useSelector((state) => ({
     playList: state.getIn(['player', 'playList']),
     currentSong: state.getIn(['player', 'currentSong']),
     playSequence: state.getIn(['player', 'playSequence']),
-    lyricList: state.getIn(['player', 'lyricList'])
+    lyricList: state.getIn(['player', 'lyricList']),
+    currentLyricIndex: state.getIn(['player', 'currentLyricIndex'])
   }), shallowEqual)
   /* hooks */
   const playerRef = useRef()
@@ -65,15 +66,18 @@ export default memo(function AppPlayerBar() {
     }
 
     // 获取当前时间点的歌词
-    let currentLyricIndex = 0
+    let lyricIndex = 0
     for (let i = 0; i < lyricList.length; i++) {  // 对歌词列表进行遍历
       const lyricItem = lyricList[i];
       if (lyricItem.time > e.target.currentTime * 1000) {  // 用歌词列表中每一项的time与currentTime来对比，如果歌词列表某一项的time比currentTime大,
-        currentLyricIndex = i - 1                          // 则说明匹配到了，但此时找到的 i(索引) 需要-1才是要展示的歌词的索引，然后赋值给 currentLyricIndex
+        lyricIndex = i - 1                          // 则说明匹配到了，但此时找到的 i(索引) 需要-1才是要展示的歌词的索引，然后赋值给 lyricIndex
         break                                              // 跳出循环
       }
     }
-    console.log(lyricList[currentLyricIndex])
+    // 修改redux中的值
+    if (lyricIndex !== currentLyricIndex) {
+      dispatch(changeCurrentLyricIndexAction(currentLyricIndex))
+    }
   }
 
   const handleMusicEnded = (e) => {
