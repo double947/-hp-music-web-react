@@ -98,3 +98,16 @@ export function getSongDetail(ids) {
     }
   })
 }
+/**
+ * 获取歌词
+ * @param  {number} id
+ */
+export function getLyricById(id) {
+  return request({
+    url: '/lyric',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}

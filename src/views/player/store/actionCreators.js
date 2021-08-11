@@ -1,5 +1,6 @@
-import { getSongDetail } from "@/api"
+import { getSongDetail, getLyricById } from "@/api"
 import { getRandomNumber } from "utils/math-utils"
+import { parseLyric } from "@/utils/lyric-parse"
 import * as actionTypes from './constants'
 
 /* changeActions */
@@ -23,6 +24,13 @@ export const changePlaySequenceAction = (sequenceEnum) => ({
   playSequence: sequenceEnum
 })
 
+const changeLyricListAction = (lyricList) => ({
+  type: actionTypes.CHANGE_LYRIC_LIST,
+  lyricList: lyricList
+})
+
+
+/* getActions */
 export const changePlaySongAction = (tag) => {
   return (dispatch, getState) => {
     // 1.获取相关数据
@@ -50,24 +58,25 @@ export const changePlaySongAction = (tag) => {
     dispatch(changCurrentSongIndexAction(currentSongIndex))
     dispatch(changeCurrentSongAction(currentSong))
 
+    // 4.请求该歌曲的歌词
+    dispatch(getLyricAction(currentSong.id))
   }
 }
 
-
-/* getActions */
 export const getSongDetailAction = (id) => {
   return async(dispatch, getState) => {
     // 1.根据id查找playList中是否已有该歌曲
     const playList = getState().getIn(['player', 'playList'])
     const songIndex = playList.findIndex(item => item.id === id)
     // 2.判断是否找到歌曲
+    let song = null
     if (songIndex !== -1) { // 若找到该歌曲
       dispatch(changCurrentSongIndexAction(songIndex))
-      const song = playList[songIndex]
+      song = playList[songIndex]
       dispatch(changeCurrentSongAction(song))
     } else { // 若未找到该歌曲，则去请求该歌曲相关数据
       const resp = await getSongDetail(id)
-      const song = resp.songs && resp.songs[0]
+      song = resp.songs && resp.songs[0]
 
       // 若歌曲数据不存在直接return
       if (!song) return
@@ -81,5 +90,17 @@ export const getSongDetailAction = (id) => {
       dispatch(changCurrentSongIndexAction(newPlayList.length - 1))
       dispatch(changeCurrentSongAction(song))
     }
+
+    // 3.请求该歌曲的歌词
+    if (!song) return
+    dispatch(getLyricAction(song.id))
+  }
+}
+
+export const getLyricAction = (id) => {
+  return async(dispatch) => {
+    const resp = await getLyricById(id)
+    const parsedLyric = parseLyric(resp.lrc.lyric)
+    dispatch(changeLyricListAction(parsedLyric))
   }
 }
