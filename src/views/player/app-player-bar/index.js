@@ -18,10 +18,11 @@ export default memo(function AppPlayerBar() {
 
   /* redux */
   const dispatch = useDispatch()
-  const { playList, currentSong, playSequence } = useSelector((state) => ({
+  const { playList, currentSong, playSequence, lyricList } = useSelector((state) => ({
     playList: state.getIn(['player', 'playList']),
     currentSong: state.getIn(['player', 'currentSong']),
-    playSequence: state.getIn(['player', 'playSequence'])
+    playSequence: state.getIn(['player', 'playSequence']),
+    lyricList: state.getIn(['player', 'lyricList'])
   }), shallowEqual)
   /* hooks */
   const playerRef = useRef()
@@ -60,8 +61,19 @@ export default memo(function AppPlayerBar() {
     // 只有在非正在手动改变进度的时候才根据自然时间来设置当前播放时间点和更新进度条
     if (!isChanging) {
       setCurrentTime(e.target.currentTime * 1000)
-      setProgress(currentTime / duration *100)
+      setProgress(e.target.currentTime * 1000 / duration *100)
     }
+
+    // 获取当前时间点的歌词
+    let currentLyricIndex = 0
+    for (let i = 0; i < lyricList.length; i++) {  // 对歌词列表进行遍历
+      const lyricItem = lyricList[i];
+      if (lyricItem.time > e.target.currentTime * 1000) {  // 用歌词列表中每一项的time与currentTime来对比，如果歌词列表某一项的time比currentTime大,
+        currentLyricIndex = i - 1                          // 则说明匹配到了，但此时找到的 i(索引) 需要-1才是要展示的歌词的索引，然后赋值给 currentLyricIndex
+        break                                              // 跳出循环
+      }
+    }
+    console.log(lyricList[currentLyricIndex])
   }
 
   const handleMusicEnded = (e) => {
