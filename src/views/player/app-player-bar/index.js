@@ -45,6 +45,7 @@ export default memo(function AppPlayerBar() {
         setIsPlaying(false)
       })
     setDuration(currentSong.dt)
+    document.title = currentSong.name
   }, [currentSong])
 
   /* other handle */
