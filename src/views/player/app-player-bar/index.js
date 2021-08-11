@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Slider } from 'antd'
+import { Slider, message } from 'antd'
 import dayjs from 'dayjs'
 
 import { AppPlayerBarWrapper, Control, PlayInfo, Operator } from './style'
@@ -76,7 +76,14 @@ export default memo(function AppPlayerBar() {
     }
     // 修改redux中的值
     if (lyricIndex !== currentLyricIndex) {
-      dispatch(changeCurrentLyricIndexAction(currentLyricIndex))
+      dispatch(changeCurrentLyricIndexAction(lyricIndex))
+      const content = lyricList[currentLyricIndex] && lyricList[currentLyricIndex].content
+      message.open({
+        key: 'lyric',
+        content: content,
+        duration: 0,
+        className: 'lyric-message'
+      })
     }
   }
 
