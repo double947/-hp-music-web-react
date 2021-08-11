@@ -11,6 +11,7 @@
     "antd": "^4.16.9",
     "axios": "^0.21.1",
     "basscss": "^8.1.0",
+    "classnames": "^2.3.1",
     "dayjs": "^1.10.6",
     "immutable": "^4.0.0-rc.14",
     "less": "^4.1.1",
