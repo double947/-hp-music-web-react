@@ -77,7 +77,7 @@ export default memo(function AppPlayerBar() {
     // 修改redux中的值
     if (lyricIndex !== currentLyricIndex) {
       dispatch(changeCurrentLyricIndexAction(lyricIndex))
-      const content = lyricList[currentLyricIndex] && lyricList[currentLyricIndex].content
+      const content = lyricList[lyricIndex] && lyricList[lyricIndex].content
       message.open({
         key: 'lyric',
         content: content,
