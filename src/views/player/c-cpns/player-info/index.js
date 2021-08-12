@@ -19,7 +19,9 @@ export default memo(function CoPlayerInfo() {
     const dispatch = useDispatch()
 
     /* other handle */
-    const playMusic = useCallback((currentSong) =>{
+    const playMusic = useCallback(async(currentSong) =>{
+      // TODO:此处该如何重新播放当前歌曲？（临时方案：直接加载另一首歌，由于播放歌曲依赖currentSong改变来执行，然后马上重新加载当前歌曲）
+      await dispatch(getSongDetailAction(31514406))
       dispatch(getSongDetailAction(currentSong.id))
     }, [dispatch])
 
@@ -49,7 +51,7 @@ export default memo(function CoPlayerInfo() {
             </div>
             <div className="flex justify-between items-center">
               <div className="flex mr1 player">
-                <div className="flex justify-end items-center fs12 white pointer sprite_button play" onClick={() => { playMusic(currentSong) }}>{isPlaying ? '播放' : '暂停'}</div>
+                <div className="flex justify-end items-center fs12 white pointer sprite_button play" onClick={() => { playMusic(currentSong) }}>{'播放'}</div>
                 <div className="sprite_button pointer add"></div>
               </div>
               <div className="relative mr1 sprite_button pointer border-bg ">
