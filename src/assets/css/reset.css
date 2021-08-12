@@ -1,6 +1,7 @@
 @import "~normalize.css";
 @import "~basscss/css/basscss.min.css";
 @import "~antd/dist/antd.css";
+@import "~animate.css/animate.min.css";
 
 /* 样式的重置 */
 body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
@@ -160,6 +161,9 @@ body, textarea, select, input, button {
 .gray {
   color: gray;
 }
+.lightGray {
+  color: #999;
+}
 .black {
   color: #000;
 }
@@ -171,4 +175,41 @@ body, textarea, select, input, button {
 }
 .fitH {
   height: 100%;
+}
+.pointer {
+  cursor: pointer;
+} 
+@keyframes rotateAnimate {
+  0%{
+    transform: rotate(-360deg);
+    -ms-transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+  /* 25%{
+    transform: rotate(-270deg);
+    -ms-transform: rotate(-270deg);
+    -webkit-transform: rotate(-270deg);
+  }
+  50%{
+    transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+  }
+  75%{
+    transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+  } */
+  100%{
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+}
+.rotate-animate {
+  -webkit-animation: rotateAnimate 100s infinite linear;
+  animation: rotateAnimate 100s infinite linear;
+  -webkit-transform-origin: center center;
+  -ms-transform-origin: center center;
+  transform-origin: center center;
 }
