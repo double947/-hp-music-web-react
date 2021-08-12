@@ -1,8 +1,9 @@
-import React, { memo, useState, useCallback } from 'react'
+import React, { memo, useState, useCallback, useEffect } from 'react'
 import { shallowEqual, useSelector, useDispatch } from 'react-redux'
 import classNames from 'classnames'
 
 import { getSongDetailAction } from 'views/player/store'
+import { getSimiSongsAction, getSimiPlayListAction } from 'views/player/store/actionCreators'
 import { PlayerInfoWrapper } from './style'
 
 export default memo(function CoPlayerInfo() {
@@ -17,6 +18,11 @@ export default memo(function CoPlayerInfo() {
 
     /* hooks */
     const dispatch = useDispatch()
+
+    useEffect(() => {
+      dispatch(getSimiSongsAction(currentSong.id))
+      dispatch(getSimiPlayListAction(currentSong.id))
+    }, [currentSong.id, dispatch])
 
     /* other handle */
     const playMusic = useCallback(async(currentSong) =>{

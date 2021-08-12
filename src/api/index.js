@@ -111,3 +111,27 @@ export function getLyricById(id) {
     }
   })
 }
+/**
+ * 获取相似歌曲
+ * @param  {number} id
+ */
+export function getSimiSongs(id) {
+  return request({
+    url: '/simi/song',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
+
+/**
+ * 获取相似歌单
+ * @param  {number} id
+ */
+export function getSimiPlayList(id) {
+  return request({
+    url: `/simi/playlist?id=${id}`,
+    method: 'get',
+  })
+}

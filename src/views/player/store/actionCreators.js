@@ -1,4 +1,4 @@
-import { getSongDetail, getLyricById } from "@/api"
+import { getSongDetail, getLyricById, getSimiSongs, getSimiPlayList } from "@/api"
 import { getRandomNumber } from "utils/math-utils"
 import { parseLyric } from "@/utils/lyric-parse"
 import * as actionTypes from './constants'
@@ -42,6 +42,16 @@ const changeCurrentLyricsAction = (currentLyrics) => ({
 export const changeIsPlayingAction = (isPlaying) => ({
   type: actionTypes.CHANGE_IS_PLAYING,
   isPlaying
+})
+
+const changeSimiSongsAction = (simiSongs) => ({
+  type: actionTypes.CHANGE_SIMI_SONGS,
+  simiSongs
+})
+
+const changeSimiPlayListAction = (simiPlayList) => ({
+  type: actionTypes.CHANGE_SIMI_PLAY_LIST,
+  simiPlayList
 })
 
 
@@ -119,5 +129,19 @@ export const getLyricAction = (id) => {
     const parsedLyric = parseLyric(resp.lrc.lyric)
     dispatch(changeLyricListAction(parsedLyric))
     dispatch(changeCurrentLyricsAction(parsedLyric))
+  }
+}
+
+export const getSimiSongsAction = (id) => {
+  return async(dispatch) =>{
+    const resp = await getSimiSongs(id)
+    dispatch(changeSimiSongsAction(resp.songs))
+  }
+}
+
+export const getSimiPlayListAction = (id) => {
+  return async(dispatch) =>{
+    const resp = await getSimiPlayList(id)
+    dispatch(changeSimiPlayListAction(resp.playlists))
   }
 }
