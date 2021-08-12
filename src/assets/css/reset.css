@@ -207,8 +207,8 @@ body, textarea, select, input, button {
   }
 }
 .rotate-animate {
-  -webkit-animation: rotateAnimate 100s infinite linear;
-  animation: rotateAnimate 100s infinite linear;
+  -webkit-animation: rotateAnimate 20s infinite linear;
+  animation: rotateAnimate 20s infinite linear;
   -webkit-transform-origin: center center;
   -ms-transform-origin: center center;
   transform-origin: center center;

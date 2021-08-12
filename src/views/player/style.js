@@ -10,6 +10,7 @@ export const PlayerWrapper = styled.div`
 
 export const PlayerLeft = styled.div`
   width: 710px;
+  padding: 47px 30px 40px 39px;
 `
 
 export const PlayerRight = styled.div`
