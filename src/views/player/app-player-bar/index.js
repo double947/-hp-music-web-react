@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 
 import CoAppPlayerPanel from '../app-player-panel'
 import { AppPlayerBarWrapper, Control, PlayInfo, Operator } from './style'
-import { changePlaySequenceAction, getSongDetailAction, changePlaySongAction, changeCurrentLyricIndexAction } from '../store/actionCreators'
+import { changePlaySequenceAction, getSongDetailAction, changePlaySongAction, changeCurrentLyricIndexAction, changeIsPlayingAction } from '../store/actionCreators'
 import { getSizeImage, getPlayUrl } from 'utils/format-utils'
 
 export default memo(function AppPlayerBar() {
@@ -15,17 +15,18 @@ export default memo(function AppPlayerBar() {
   const [currentTime, setCurrentTime] = useState(0) // 歌曲播放的当前时间点
   const [progress, setProgress] = useState(0)  // 歌曲进度
   const [isChanging, setIsChanging] = useState(false) // 是否正在手动改变进度条
-  const [isPlaying, setIsPlaying] = useState(false)  // 是否正在播放
+  // const [isPlaying, setIsPlaying] = useState(false)  // 是否正在播放
   const [showPlayerPanel, setShowPlayerPanel] = useState(false)
 
   /* redux */
   const dispatch = useDispatch()
-  const { playList, currentSong, playSequence, lyricList, currentLyricIndex } = useSelector((state) => ({
+  const { playList, currentSong, playSequence, lyricList, currentLyricIndex, isPlaying } = useSelector((state) => ({
     playList: state.getIn(['player', 'playList']),
     currentSong: state.getIn(['player', 'currentSong']),
     playSequence: state.getIn(['player', 'playSequence']),
     lyricList: state.getIn(['player', 'lyricList']),
-    currentLyricIndex: state.getIn(['player', 'currentLyricIndex'])
+    currentLyricIndex: state.getIn(['player', 'currentLyricIndex']),
+    isPlaying: state.getIn(['player', 'isPlaying'])
   }), shallowEqual)
   /* hooks */
   const playerRef = useRef()
@@ -40,13 +41,13 @@ export default memo(function AppPlayerBar() {
     // 切歌后主动调用play(),且audio的play方法返回的是一个Promise
     playerRef.current.play()
       .then(() => {
-        setIsPlaying(true)
+        dispatch(changeIsPlayingAction(true))
       }).catch(() => {
-        setIsPlaying(false)
+        dispatch(changeIsPlayingAction(false))
       })
     setDuration(currentSong.dt)
     document.title = currentSong.name
-  }, [currentSong])
+  }, [currentSong, dispatch])
 
   /* other handle */
   const picUrl = (currentSong.al && currentSong.al.picUrl) || ''
@@ -56,8 +57,8 @@ export default memo(function AppPlayerBar() {
   const playMusic = useCallback(() => {
     isPlaying ? playerRef.current.pause() : playerRef.current.play()
     // 每次切换播放状态后需要对isPlaying取反
-    setIsPlaying(!isPlaying)
-  }, [isPlaying])
+    dispatch(changeIsPlayingAction(!isPlaying))
+  }, [dispatch, isPlaying])
 
   const timeUpdate = (e) => {
     // console.log('timeUpdate', currentTime / duration *100, currentTime)

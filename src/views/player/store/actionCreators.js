@@ -39,6 +39,11 @@ const changeCurrentLyricsAction = (currentLyrics) => ({
   currentLyrics,
 })
 
+export const changeIsPlayingAction = (isPlaying) => ({
+  type: actionTypes.CHANGE_IS_PLAYING,
+  isPlaying
+})
+
 
 /* getActions */
 export const changePlaySongAction = (tag) => {
