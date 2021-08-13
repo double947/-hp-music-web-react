@@ -1,5 +1,5 @@
 @import "~normalize.css";
-@import "~basscss/css/basscss.min.css";
+@import "~basscss/src/basscss.css";
 @import "~antd/dist/antd.css";
 @import "~animate.css/animate.min.css";
 
