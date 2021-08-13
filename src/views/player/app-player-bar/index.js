@@ -46,7 +46,7 @@ export default memo(function AppPlayerBar() {
         dispatch(changeIsPlayingAction(false))
       })
     setDuration(currentSong.dt)
-    document.title = currentSong.name
+    document.title = currentSong.name ? `${currentSong.name} - ${currentSong.ar && currentSong.ar[0].name }` : "Music"
   }, [currentSong, dispatch])
 
   /* other handle */
