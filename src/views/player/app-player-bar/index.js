@@ -34,6 +34,17 @@ export default memo(function AppPlayerBar() {
     // dispatch(getSongDetailAction(1330348068))
   }, [dispatch])
 
+  useEffect(() => {
+    let currentSongId = null
+    try {
+      currentSongId = JSON.parse(localStorage.getItem('currentSong')).id
+    } catch (err) {
+      console.log(err)
+    }
+    if (!currentSongId) return
+    dispatch(getSongDetailAction(currentSongId))
+  }, [dispatch])
+
   // 只有在歌曲id发生改变的时候才需要重新设置播放src
   useEffect(() => {
     playerRef.current.src = getPlayUrl(currentSong.id)
