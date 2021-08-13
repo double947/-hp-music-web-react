@@ -149,7 +149,7 @@ export function getTopList() {
 
 /**
  * 获取榜单详情
- * @param  {} id
+ * @param  {number} id
  */
 export function getRankingList(id) {
   return request({
@@ -160,12 +160,21 @@ export function getRankingList(id) {
   })
 }
 
+/**
+ * 获取歌单分类
+ */
 export function getSongCategory() {
   return request({
     url: "/playlist/catlist"
   })
 }
 
+/**
+ * 获取网友精选碟歌单
+ * @param  {string} cat="全部"
+ * @param  {number} offset=0
+ * @param  {number} limit=35
+ */
 export function getSongCategoryList(cat="全部", offset=0, limit = 35) {
   return request({
     url: "/top/playlist",
@@ -177,12 +186,19 @@ export function getSongCategoryList(cat="全部", offset=0, limit = 35) {
   })
 }
 
+/**
+ * 获取电台分类
+ */
 export function getDjRadioCatelist() {
   return request({
     url: "/dj/catelist"
   })
 }
 
+/**
+ * 可获得对应类型电台列表
+ * @param  {number} type
+ */
 export function getDjRadioRecommend(type) {
   return request({
     url: "/dj/recommend/type",
@@ -192,6 +208,12 @@ export function getDjRadioRecommend(type) {
   })
 }
 
+/**
+ * 电台 - 类别热门电台
+ * @param  {number} cateId
+ * @param  {number} limit
+ * @param  {number} offset
+ */
 export function getDjRadios(cateId, limit, offset) {
   return request({
     url: "/dj/radio/hot",
@@ -203,6 +225,12 @@ export function getDjRadios(cateId, limit, offset) {
   })
 }
 
+/**
+ * 获取歌手分类列表
+ * @param  {number} area
+ * @param  {number} type
+ * @param  {string} initial
+ */
 export function getArtistList(area, type, initial) {
   let url = "/artist/list";
   let params = { limit: 100 }
@@ -227,12 +255,20 @@ export function getArtistList(area, type, initial) {
   })
 }
 
+/**
+ * 获取云音乐首页新碟上架数据
+ */
 export function getHotAlbums() {
   return request({
     url: "/album/newest"
   })
 }
 
+/**
+ * 获取新碟上架列表 , 如需具体音乐信息需要调用获取专辑列表接 口 /album , 然后传入 id, 如 /album?id=32311&limit=30
+ * @param  {number} limit
+ * @param  {number} offset
+ */
 export function getTopAlbums(limit, offset) {
   return request({
     url: "/top/album",

@@ -42,7 +42,7 @@ export default memo(function CoSongsCategory() {
                     item.subs.map(sItem => {
                       return (
                         <div className="item" key={sItem.name}>
-                          <span className="link" onClick={e => selectCategory(sItem.name)}>{sItem.name}</span>
+                          <span className="link pointer" onClick={e => selectCategory(sItem.name)}>{sItem.name}</span>
                           <span className="divider">|</span>
                         </div>
                       )
