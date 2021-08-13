@@ -1,10 +1,15 @@
 import React, { memo } from 'react'
 
+import { CoArtistCategory, CoArtistList } from './c-cpns'
+import { CoArtistWrapper } from './style'
+
 export default memo(function CoArtist() {
   return (
-    <div>
-      <h2>CoArtist</h2>
-    </div>
+    <CoArtistWrapper>
+      <div className="content wrap-v2">
+        <CoArtistCategory/>
+        <CoArtistList/>
+      </div>
+    </CoArtistWrapper>
   )
 })
-
