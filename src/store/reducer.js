@@ -4,11 +4,13 @@ import { combineReducers } from 'redux-immutable'
 import { reducer as recommendReducer } from 'views/discover/c-pages/recommend/store'
 import { reducer as playerReducer } from 'views/player/store'
 import { reducer as rankingReducer } from "views/discover/c-pages/ranking/store"
+import { reducer as songsReducer } from "views/discover/c-pages/songs/store"
 
 const mergeReducer = combineReducers({
   recommend: recommendReducer,
   player: playerReducer,
   ranking: rankingReducer,
+  songs: songsReducer,
 })
 
 export default mergeReducer
