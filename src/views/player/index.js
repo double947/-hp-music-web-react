@@ -12,8 +12,8 @@ export default memo(function CoPlayer() {
         <CoPlayerComment />
       </PlayerLeft>
       <PlayerRight>
-        <CoPlayerSongs />
         <CoPlayerRelevant />
+        <CoPlayerSongs />
       </PlayerRight>
       </div>
     </PlayerWrapper>

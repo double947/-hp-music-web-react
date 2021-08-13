@@ -31,7 +31,7 @@ export default memo(function AppPlayerBar() {
   /* hooks */
   const playerRef = useRef()
   useEffect(() => {
-    dispatch(getSongDetailAction(1330348068))
+    // dispatch(getSongDetailAction(1330348068))
   }, [dispatch])
 
   // 只有在歌曲id发生改变的时候才需要重新设置播放src

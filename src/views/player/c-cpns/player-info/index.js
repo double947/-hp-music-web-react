@@ -19,11 +19,6 @@ export default memo(function CoPlayerInfo() {
     /* hooks */
     const dispatch = useDispatch()
 
-    useEffect(() => {
-      dispatch(getSimiSongsAction(currentSong.id))
-      dispatch(getSimiPlayListAction(currentSong.id))
-    }, [currentSong.id, dispatch])
-
     /* other handle */
     const playMusic = useCallback(async(currentSong) =>{
       // TODO:此处该如何重新播放当前歌曲？（临时方案：直接加载另一首歌，由于播放歌曲依赖currentSong改变来执行，然后马上重新加载当前歌曲）

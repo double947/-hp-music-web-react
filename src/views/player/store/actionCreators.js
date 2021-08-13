@@ -85,6 +85,14 @@ export const changePlaySongAction = (tag) => {
 
     // 4.请求该歌曲的歌词
     dispatch(getLyricAction(currentSong.id))
+
+    // 5.将该歌曲在本地存一份
+    console.log(currentSong)
+    try {
+      localStorage.setItem('currentSong', JSON.stringify(currentSong))
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -119,6 +127,14 @@ export const getSongDetailAction = (id) => {
     // 3.请求该歌曲的歌词
     if (!song) return
     dispatch(getLyricAction(song.id))
+
+    // 4.将该歌曲在本地存一份
+    console.log(song)
+    try {
+      localStorage.setItem('currentSong', JSON.stringify(song))
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -132,15 +148,41 @@ export const getLyricAction = (id) => {
   }
 }
 
-export const getSimiSongsAction = (id) => {
-  return async(dispatch) =>{
+export const getSimiSongsAction = () => {
+  return async(dispatch, getState) =>{
+    let id = null
+    if (getState().getIn(['player', 'currentSong']).id) {
+      id = getState().getIn(['player', 'currentSong']).id
+    } else {
+      try {
+        id = JSON.parse(localStorage.getItem('currentSong')).id
+        console.log(id)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    if (!id) return
     const resp = await getSimiSongs(id)
     dispatch(changeSimiSongsAction(resp.songs))
   }
 }
 
-export const getSimiPlayListAction = (id) => {
-  return async(dispatch) =>{
+export const getSimiPlayListAction = () => {
+  return async(dispatch, getState) =>{
+    let id = null
+    if (getState().getIn(['player', 'currentSong']).id) {
+      id = getState().getIn(['player', 'currentSong']).id
+    } else {
+      try {
+        id = JSON.parse(localStorage.getItem('currentSong')).id
+        console.log(id)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    
+    if (!id) return
     const resp = await getSimiPlayList(id)
     dispatch(changeSimiPlayListAction(resp.playlists))
   }
