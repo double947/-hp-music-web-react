@@ -55,16 +55,16 @@ export default memo(function CoPlayerInfo() {
                 <div className="sprite_button pointer add"></div>
               </div>
               <div className="relative mr1 sprite_button pointer border-bg ">
-                <div className="flex justify-end items-center fs12 absolute fitH sprite_button favor">收藏</div>
+                <i className="inline-block sprite_button favor">收藏</i>
               </div>
               <div className="relative mr1 sprite_button pointer border-bg ">
-                <div className="flex justify-end items-center fs12 absolute fitH sprite_button share">分享</div>
+                <i className="inline-block sprite_button share">分享</i>
               </div>
               <div className="relative mr1 sprite_button pointer border-bg ">
-                <div className="flex justify-end items-center fs12 absolute fitH sprite_button download">下载</div>
+                <i className="inline-block sprite_button download">下载</i>
               </div>
               <div className="relative mr1 sprite_button pointer border-bg ">
-                <div className="flex justify-end items-center fs12 absolute fitH sprite_button comments"></div>
+                <i className="inline-block sprite_button comments">9999+</i>
               </div>
             </div>
           </div>

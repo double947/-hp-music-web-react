@@ -58,13 +58,15 @@ export const PlayerInfoWrapper = styled.div`
 
         }
         .border-bg {
-          width: 59px;
           height: 31px;
+          margin-right: 6px;
+          padding-right: 5px;
           background-position: right -1020px;
-          div {
-            width: 54px;
-            height: inherit;
-          }
+            i {
+              height: 31px;
+              line-height: 31px;
+              padding: 0 7px 0 28px;
+            }
         }
         .favor {
           background-position: 0 -977px;
