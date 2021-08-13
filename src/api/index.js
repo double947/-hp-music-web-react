@@ -131,7 +131,10 @@ export function getSimiSongs(id) {
  */
 export function getSimiPlayList(id) {
   return request({
-    url: `/simi/playlist?id=${id}`,
+    url: `/simi/playlist`,
     method: 'get',
+    params: {
+      id
+    }
   })
 }
