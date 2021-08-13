@@ -87,7 +87,6 @@ export const changePlaySongAction = (tag) => {
     dispatch(getLyricAction(currentSong.id))
 
     // 5.将该歌曲在本地存一份
-    console.log(currentSong)
     try {
       localStorage.setItem('currentSong', JSON.stringify(currentSong))
     } catch (err) {
@@ -129,7 +128,6 @@ export const getSongDetailAction = (id) => {
     dispatch(getLyricAction(song.id))
 
     // 4.将该歌曲在本地存一份
-    console.log(song)
     try {
       localStorage.setItem('currentSong', JSON.stringify(song))
     } catch (err) {
