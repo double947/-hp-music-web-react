@@ -5,12 +5,14 @@ import { reducer as recommendReducer } from 'views/discover/c-pages/recommend/st
 import { reducer as playerReducer } from 'views/player/store'
 import { reducer as rankingReducer } from "views/discover/c-pages/ranking/store"
 import { reducer as songsReducer } from "views/discover/c-pages/songs/store"
+import { reducer as djradioReducer } from "views/discover/c-pages/djradio/store"
 
 const mergeReducer = combineReducers({
   recommend: recommendReducer,
   player: playerReducer,
   ranking: rankingReducer,
   songs: songsReducer,
+  djradio: djradioReducer,
 })
 
 export default mergeReducer

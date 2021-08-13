@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const RankingListWrapper = styled.div`
   padding: 0 40px;
@@ -12,7 +12,7 @@ export const RankingListWrapper = styled.div`
         th {
           height: 34px;
           line-height: 34px;
-          background-image: url(${require("@/assets/img/sprite_table.png")});
+          background-image: url(${require("@/assets/img/sprite_table.png").default});
           color: #666;
           border: 1px solid #ddd;
           border-width: 0 0 1px 1px;

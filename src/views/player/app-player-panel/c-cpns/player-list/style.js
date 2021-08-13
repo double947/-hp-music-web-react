@@ -25,7 +25,7 @@ export const PlayListWrapper = styled.div`
         left: 8px;
         width: 10px;
         height: 13px;
-        background: url(${require("@/assets/img/playlist_sprite.png")}) -182px 0;
+        background: url(${require("@/assets/img/playlist_sprite.png").default}) -182px 0;
       }
     }
 
