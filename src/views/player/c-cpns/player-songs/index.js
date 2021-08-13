@@ -8,7 +8,6 @@ import { PlayerSongsWrapper, SimiSongItemWrapper } from './style'
 const SimiSongItem = memo(function SingerItem(props) {
   const { source } = props
   const [ artists ] = source.artists
-  console.log(artists)
   return (
     <SimiSongItemWrapper className="flex justify-between items-center mt2">
       <div className="flex flex-column info-left">

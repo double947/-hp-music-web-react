@@ -1,9 +1,8 @@
-import React, { memo, useState, useCallback, useEffect } from 'react'
+import React, { memo, useState, useCallback } from 'react'
 import { shallowEqual, useSelector, useDispatch } from 'react-redux'
 import classNames from 'classnames'
 
 import { getSongDetailAction } from 'views/player/store'
-import { getSimiSongsAction, getSimiPlayListAction } from 'views/player/store/actionCreators'
 import { PlayerInfoWrapper } from './style'
 
 export default memo(function CoPlayerInfo() {

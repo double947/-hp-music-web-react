@@ -156,7 +156,6 @@ export const getSimiSongsAction = () => {
     } else {
       try {
         id = JSON.parse(localStorage.getItem('currentSong')).id
-        console.log(id)
       } catch (err) {
         console.log(err)
       }
@@ -176,12 +175,11 @@ export const getSimiPlayListAction = () => {
     } else {
       try {
         id = JSON.parse(localStorage.getItem('currentSong')).id
-        console.log(id)
       } catch (err) {
         console.log(err)
       }
     }
-    
+
     if (!id) return
     const resp = await getSimiPlayList(id)
     dispatch(changeSimiPlayListAction(resp.playlists))
