@@ -1,18 +1,16 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 
-import CoDiscover from '@/views/discover'
-import CoRecommend from "../views/discover/c-pages/recommend"
-import CoRanking from "../views/discover/c-pages/ranking"
-import CoSongs from "../views/discover/c-pages/songs"
-import CoDjradio from "../views/discover/c-pages/djradio"
-import CoArtist from "../views/discover/c-pages/artist"
-import CoAlbum from "../views/discover/c-pages/album"
-import CoPlayer from 'views/player'
-
-
-import CoMine from '@/views/mine'
-import CoFriend from '@/views/friend'
+const CoDiscover = React.lazy(() => import("@/views/discover"))
+const CoRecommend = React.lazy(() => import("@/views/discover/c-pages/recommend"))
+const CoRanking = React.lazy(() => import("@/views/discover/c-pages/ranking"))
+const CoSongs = React.lazy(() => import("@/views/discover/c-pages/songs"))
+const CoDjradio = React.lazy(() => import("@/views/discover/c-pages/djradio"))
+const CoArtist = React.lazy(() => import("@/views/discover/c-pages/artist"))
+const CoAlbum = React.lazy(() => import("@/views/discover/c-pages/album"))
+const CoPlayer = React.lazy(() => import("@/views/player"))
+const CoMine = React.lazy(() => import("@/views/mine"))
+const CoFriend = React.lazy(() => import("@/views/friend"))
 
 
 const routes = [
