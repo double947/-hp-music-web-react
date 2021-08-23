@@ -27,6 +27,8 @@
 
 ![歌曲播放](https://tva1.sinaimg.cn/large/007S8ZIlgy1ghv9pc3ki6j30ws0ahti8.jpg)
 
+![播放主页](https://z3.ax1x.com/2021/08/23/hCWf3V.png)
+
 排行榜页面：
 
 * 各种榜单的切换；
