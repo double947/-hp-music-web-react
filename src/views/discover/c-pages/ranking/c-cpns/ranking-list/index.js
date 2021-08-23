@@ -1,10 +1,8 @@
-import React, { memo } from 'react';
-import { useSelector, shallowEqual } from "react-redux";
+import React, { memo, useCallback } from 'react';
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 
-import {
-  getSizeImage,
-  formatMinuteSecond
-} from "@/utils/format-utils.js"
+import { getSizeImage, formatMinuteSecond } from "@/utils/format-utils.js"
+import { getSongDetailAction } from 'views/player/store';
 
 import CoThemeHeaderSong from '@/components/theme-header-song';
 import {
@@ -16,6 +14,11 @@ export default memo(function CoRankingList() {
     playList: state.getIn(["ranking", "playList"])
   }), shallowEqual);
   const tracks = state.playList.tracks || [];
+
+  const dispatch = useDispatch()
+  const playMusic = useCallback((item) => {
+    dispatch(getSongDetailAction(item.id))
+  }, [dispatch])
 
   return (
     <RankingListWrapper>
@@ -47,7 +50,7 @@ export default memo(function CoRankingList() {
                           index < 3 ?
                             (<img src={getSizeImage(item.al.picUrl, 50)} alt="" />) : null
                         }
-                        <span className="play sprite_table"></span>
+                        <span className="play sprite_table" onClick={() =>{playMusic(item)}}></span>
                         <span className="name">{item.name}</span>
                       </div>
                     </td>
